@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syteme Expert pour le choix d'architecture logiciel </title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-gradient: radial-gradient(circle at top right, #eef2ff 0%, #f8fafc 50%, #f1f5f9 100%);
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
+        .header-section h1 {
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #1e293b 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Conteneur principal flexible */
+        .main-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .card-custom {
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 24px;
+            background: var(--card-bg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+            height: 100%;
+        }
+
+        /* Formulaire */
+        .form-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-select {
+            border-radius: 12px;
+            border: 2px solid #f1f5f9;
+            padding: 0.65rem 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-analyze {
+            background: var(--primary-color);
+            border: none;
+            padding: 1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-analyze:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Panneau de Résultat (À côté) */
+        .result-pane {
+            position: sticky;
+            top: 40px;
+            animation: fadeInRight 0.6s ease-out;
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .result-box {
+            border: none;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .explanation-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .empty-state {
+            border: 2px dashed #e2e8f0;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            min-height: 400px;
+            color: #94a3b8;
+            background: rgba(255,255,255,0.4);
+        }
+
+        footer {
+            margin-top: 4rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <!-- HEADER -->
+    <div class="header-section text-center mb-5">
+        <div class="d-inline-block p-3 bg-white shadow-sm rounded-4 mb-3">
+            <i class="bi bi-diagram-3-fill text-primary" style="font-size: 2rem;"></i>
+        </div>
+        <h1 class="display-6 fw-bold">ExpertArch</h1>
+        <p class="text-muted">Système Expert d'Architecture Logicielle</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- COLONNE GAUCHE : FORMULAIRE -->
+        <div class="col-lg-7">
+            <div class="card card-custom p-4 p-md-5">
+                <form method="post" action="/result">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label">Taille du projet</label>
+                            <select name="taille" class="form-select">
+                                <option value="petit">📦 Petit</option>
+                                <option value="grand">🏢 Grand</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Scalabilité</label>
+                            <select name="scalabilite" class="form-select">
+                                <option value="faible">Verticale</option>
+                                <option value="elevee">Élevée</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Complexité</label>
+                            <select name="complexite" class="form-select">
+                                <option value="faible">Faible</option>
+                                <option value="moyenne">Moyenne</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Utilisateurs</label>
+                            <select name="utilisateurs" class="form-select">
+                                <option value="faible">Restreint</option>
+                                <option value="eleve">Massif</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Temps réel</label>
+                            <select name="temps_reel" class="form-select">
+                                <option value="non">Non</option>
+                                <option value="oui">Oui</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Budget</label>
+                            <select name="budget" class="form-select">
+                                <option value="faible">Limité</option>
+                                <option value="eleve">Conséquent</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <button class="btn btn-analyze w-100 btn-primary fs-5 text-white">
+                                <i class="bi bi-cpu-fill me-2"></i>Analyser l'architecture
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- COLONNE DROITE : RÉSULTATS -->
+        <div class="col-lg-5">
+            <div class="result-pane h-100">
+                {% if result %}
+                    <div class="result-box shadow-lg">
+                        <span class="badge bg-white text-primary mb-3 px-3 py-2 rounded-pill fw-bold">RÉSULTAT ANALYSE</span>
+                        <h2 class="display-6 fw-bold mb-4">{{ result }}</h2>
+
+                        {% if explication %}
+                        <div class="explanation-card">
+                            <h6 class="fw-bold mb-3 d-flex align-items-center">
+                                <i class="bi bi-info-circle me-2"></i> Justification technique
+                            </h6>
+                            <ul class="list-unstyled mb-0 small">
+                                {% for e in explication %}
+                                    <li class="mb-2 d-flex align-items-start">
+                                        <i class="bi bi-check2-all me-2"></i> {{ e }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <!-- État vide avant analyse -->
+                    <div class="empty-state">
+                        <i class="bi bi-stars mb-3" style="font-size: 3rem;"></i>
+                        <p class="fw-medium">En attente de paramètres...</p>
+                        <span class="small text-center px-4">Remplissez le formulaire pour générer la recommandation architecturale.</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-muted small">
+        &copy; 2026 ExpertArch — Engine v2.0
+    </footer>
+</div>
+
+</body>
+</html>
