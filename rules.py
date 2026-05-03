@@ -50,7 +50,7 @@ On choisit une architecture event-driven (orientée événements) lorsqu’on ve
         score["MVC"] += 2
         explications["MVC"].append("""
         📌 Pourquoi ce choix ?
-On choisit l’architecture MVC (Model-View-Controller) pour organiser une application de manière claire et structurée en séparant les responsabilités. Ce choix est idéal lorsqu’on développe des applications web ou des interfaces utilisateur, car il permet de distinguer la logique métier (Model), l’affichage (View) et le contrôle des actions utilisateur (Controller). Cela rend le code plus facile à comprendre, à maintenir et à faire évoluer, surtout quand plusieurs développeurs travaillent sur le même projet. On privilégie MVC quand on veut une bonne organisation du code dès le départ, éviter le mélange entre interface et logique, et faciliter les tests ainsi que les modifications futures.
+ On choisit l’architecture MVC (Model-View-Controller) pour organiser une application de manière claire et structurée en séparant les responsabilités. Ce choix est idéal lorsqu’on développe des applications web ou des interfaces utilisateur, car il permet de distinguer la logique métier (Model), l’affichage (View) et le contrôle des actions utilisateur (Controller). Cela rend le code plus facile à comprendre, à maintenir et à faire évoluer, surtout quand plusieurs développeurs travaillent sur le même projet. On privilégie MVC quand on veut une bonne organisation du code dès le départ, éviter le mélange entre interface et logique, et faciliter les tests ainsi que les modifications futures.
 """)
 
     if data["utilisateurs"] == "eleve":
